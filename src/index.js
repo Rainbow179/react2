@@ -9,8 +9,8 @@ import store from './redux/store';
 
 
 import Login from './components/login';
-import Main from './components/main';
 import Register from './components/register';
+import Main from './components/main';
 
 
 
@@ -18,8 +18,8 @@ ReactDom.render((
   <Provider store={store}>
     <HashRouter>
       <Switch>
-        <Route path="./login" component={Login}/>
-        <Route path="./register" component={Register}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/register" component={Register}/>
         <Route path="/" component={Main}/>
       </Switch>
     </HashRouter>
