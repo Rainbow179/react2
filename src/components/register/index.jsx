@@ -1,11 +1,10 @@
 //引入
 
 import React,{Component} from 'react';
-
 import {NavBar,WingBlank, WhiteSpace, List, InputItem, Radio, Button} from 'antd-mobile';
 
-
 import Logo from '../logo';
+import {reqRegister} from '../../api';
 
 //定义变量
 
@@ -70,12 +69,16 @@ class Register extends Component{
   
   
   //定义注册事件
-  register = () =>{
+  register = async() =>{
     //收集表单数据
     const {laoban,username,password,repassword} =this.state;
     
     //发送ajax
     console.log(laoban,username,password,repassword);
+    
+    //引用reqRegister方法,将函数改成async函数,用await接收返回数据
+    const user = await reqRegister({username,password,type : laoban ? 'laoban' : 'dashen'});
+    console.log(user);
 
   }
   
@@ -105,9 +108,9 @@ class Register extends Component{
           <List>
             <InputItem onChange={val=>this.handleChange('username',val)}>用户名:</InputItem>
             <WhiteSpace/>
-            <InputItem onChange={val=>this.handleChange('password',val)}>密&nbsp;&nbsp;&nbsp;码:</InputItem>
+            <InputItem onChange={val=>this.handleChange('password',val)} type="password">密&nbsp;&nbsp;&nbsp;码:</InputItem>
             <WhiteSpace/>
-            <InputItem onChange={val=>this.handleChange('repassword',val)}>确认密码:</InputItem>
+            <InputItem onChange={val=>this.handleChange('repassword',val)} type="password">确认密码:</InputItem>
             <WhiteSpace/>
             <Item>
               用户类型:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
