@@ -16,7 +16,7 @@ function user(previousState = initUserState,action) {
   
   switch (action.type) {
     case AUTH_SUCCESS:
-      return action.data;
+      return {...action.data};
     case AUTH_ERROR:
       // return action.data;正常写法
       //更好的写法,可以自定义设置更多的值
@@ -27,16 +27,16 @@ function user(previousState = initUserState,action) {
   
 }
 
-const initYyyState = {};
-
-function yyy(previousState = initYyyState,action) {
-  
-  switch (action.type) {
-    default:
-      return previousState;
-  }
-  
-}
+// const initYyyState = {};
+//
+// function yyy(previousState = initYyyState,action) {
+//
+//   switch (action.type) {
+//     default:
+//       return previousState;
+//   }
+//
+// }
 
 //往外暴露的是对象
 export default combineReducers({

@@ -1,10 +1,12 @@
 //引入
 
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
+import './index.less';
 import {NavBar,WingBlank, WhiteSpace, List, InputItem, Radio, Button} from 'antd-mobile';
 
 import Logo from '../logo';
-import {reqRegister} from '../../api';
+// import {reqRegister} from '../../api';
 
 //定义变量
 
@@ -15,6 +17,11 @@ const Item = List.Item;
 //设置
 
 class Register extends Component{
+  
+  static propTypes = {
+    user : PropTypes.object.isRequired,
+    register: PropTypes.func.isRequired
+  }
   
   //定义初始状态
   state = {
@@ -76,9 +83,12 @@ class Register extends Component{
     //发送ajax
     console.log(laoban,username,password,repassword);
     
-    //引用reqRegister方法,将函数改成async函数,用await接收返回数据
-    const user = await reqRegister({username,password,type : laoban ? 'laoban' : 'dashen'});
-    console.log(user);
+    // //引用reqRegister方法,将函数改成async函数,用await接收返回数据
+    // const user = await reqRegister({username,password,type : laoban ? 'laoban' : 'dashen'});
+    // console.log(user);
+    
+    //调用容器组建传递的更新状态的方法
+    this.props.register({username,password,type : laoban ? 'laoban' : 'dashen'})
 
   }
   
@@ -97,13 +107,16 @@ class Register extends Component{
   render(){
     
     const {laoban} = this.state;
-    
+    //从user中拿到errMsg,将错误展示在页面中,表单认证
+    const {errMsg} = this.props.user;
     
     
     return (
       <div>
         <NavBar>硅谷直聘</NavBar>
         <Logo />
+        <p className="err-Msg">{errMsg}</p>
+        
         <WingBlank>
           <List>
             <InputItem onChange={val=>this.handleChange('username',val)}>用户名:</InputItem>

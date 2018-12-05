@@ -3,16 +3,28 @@
 
 
 import {reqRegister} from '../api';
-import {AUTH_SUCCESS}from './action-types';
-import {AUTH_ERROR}from './action-types';
+import {AUTH_SUCCESS,AUTH_ERROR}from './action-types';
+
 
 //定义同步action creator 来创建action对象
-export const authSuccess =data =>({type:'AUTH_SUCCESS',data});
-export const authError =data =>({type:'AUTH_ERROR',data});
+export const authSuccess =data =>({type:AUTH_SUCCESS,data});
+export const authError =data =>({type:AUTH_ERROR,data});
 
 
 //定义异步的action creator,函数
 export const register = ({username,password,repassword,type}) =>{
+  
+  //做表单验证,是一个同步的action对象
+  if(!username){
+      return authError ({errMsg:'请输入用户名'})
+  } else if (!password){
+     return authError ({errMsg:'请输入密码'})
+  } else if (repassword !== password) {
+    return authError ({errMsg:'两次密码不一致,请重新输入'})
+  }
+  
+  
+  
   return dispatch =>{
     //做异步任务,发送ajax请求
     reqRegister({username,password,type})

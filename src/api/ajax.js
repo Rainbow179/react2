@@ -11,20 +11,18 @@ export default  async function (url,data,method ='GET') {
   
   //判断data数据是否存在(也有可能不传),处理请求参数
   if(data){
-    
+    console.log(data);
     //返回一个数组,数组中包含对象中的所有属性名  Object.keys(data)
     const arr =Object.keys(data);
     
     //遍历这个数组,拿到所有属性名,进行拼串
     arr.forEach(key =>{
       qs +=`${key}=${data[key]}&`
-      //去掉最后一个多余的&
-      qs = qs.substr(0,qs.length-1);
-      
     })
+    //去掉最后一个多余的&
+    qs = qs.substring(0, qs.length-1);
     
   }
-  
   //判断请求方式
   
   const type = method.toUpperCase();   //定义一个类型方法,全部转化为大写
