@@ -13,3 +13,7 @@ const prefix ='';
 //data是对象的方式传递
 
  export const reqRegister = data  => ajax(`${prefix}/register`,data,'POST');
+ 
+ //定义登陆的请求
+
+export const reqLogin = data => ajax(`${prefix}/login`,data,'POST');

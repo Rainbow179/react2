@@ -1,6 +1,7 @@
 //引入
 
 import React,{Component} from 'react';
+import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import './index.less';
 import {NavBar,WingBlank, WhiteSpace, List, InputItem, Radio, Button} from 'antd-mobile';
@@ -67,7 +68,7 @@ class Register extends Component{
 //   }
 //
   
-  //更改后的写法 用户名  密码  单选项
+  //更改后的写法 用户名  密码  用户类型:单选项
   handleChange = (type,value)=>{
     this.setState({
       [type]:value
@@ -87,7 +88,7 @@ class Register extends Component{
     // const user = await reqRegister({username,password,type : laoban ? 'laoban' : 'dashen'});
     // console.log(user);
     
-    //调用容器组建传递的更新状态的方法
+    //调用容器组件传递的更新状态的方法
     this.props.register({username,password,type : laoban ? 'laoban' : 'dashen'})
 
   }
@@ -101,14 +102,17 @@ class Register extends Component{
   }
   
   
-  
-  
-  
+  //设置
   render(){
     
     const {laoban} = this.state;
     //从user中拿到errMsg,将错误展示在页面中,表单认证
-    const {errMsg} = this.props.user;
+    const {errMsg,redirectTo} = this.props.user;
+    
+    //如果又redirectTo,那么重定向到redirectTo指定的页面
+    if (redirectTo){
+      return <Redirect to={redirectTo}/>
+    }
     
     
     return (
@@ -134,6 +138,7 @@ class Register extends Component{
             <Button type="primary" onClick={this.register}>注册</Button>
             <WhiteSpace/>
             <Button onClick={this.goLogin}>已有账号</Button>
+            
             
           </List>
         </WingBlank>
