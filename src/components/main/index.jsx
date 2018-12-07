@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Route} from 'react-router-dom'
 
-
+import LaobanInfo from '../laoban-info';
 
 class Main extends Component{
   render(){
     return (
-      <h1>Main</h1>
+      <div>
+        
+        <Route path="/laobaninfo" component={LaobanInfo}/>
+      </div>
     )
 
     
